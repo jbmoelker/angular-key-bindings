@@ -13,6 +13,80 @@ angular.module('voorhoede.components.key-bindings.directives.key_binding', [])
  *
  * @param handler {expression}
  * Expression that will be evaluated when the specified key combo is performed.
+ *
+ * @example
+ * Using the `n` key globally in the app to create a new document, unless the currently focused element
+ * is editable (e.g., input, select)
+<example module="app">
+    <file name="index.html">
+        <div ng-controller="AppCtrl as app">
+            <key-binding combo="n" handler="app.createNewDocument()"></key-binding>
+            <div class="form-group">
+                <input class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control"></textarea>
+            </div>
+        </div>
+    </file>
+    <file name="index.js">
+        angular.module('app', ['voorhoede.components.key-bindings'])
+            .controller('AppCtrl', function() {
+                this.createNewDocument = function() {
+                    alert('Create new document');
+                };
+            });
+    </file>
+</example>
+ *
+ * @example Using the escape key in every closable component to close it, but only close 1 component at a time.
+<example module="app">
+    <file name="index.html">
+        <dropdown button-text="Dropdown level 1">
+            <dropdown button-text="Dropdown level 2">
+                <dropdown  button-text="Dropdown level 3">
+                </dropdown>
+            </dropdown>
+        </dropdown>
+    </file>
+    <file name="dropdown.html">
+        <div class="dropdown" ng-class="{'open': dropdown.isOpen}">
+            <button class="btn btn-default" ng-click="dropdown.toggle()">
+                {{ buttonText }}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" ng-if="dropdown.isOpen">
+                <key-binding combo="esc" handler="dropdown.close()"></key-binding>
+                <li><a href="">Item 1</a></li>
+                <li><a href="">Item 2</a></li>
+                <li ng-transclude></li>
+            </ul>
+        </div>
+    </file>
+    <file name="index.js">
+        angular.module('app', ['voorhoede.components.key-bindings'])
+            .directive('dropdown', function() {
+                return {
+                    restrict: 'E',
+                    scope: {buttonText: '@'},
+                    templateUrl: 'dropdown.html',
+                    transclude: true,
+                    controllerAs: 'dropdown',
+                    controller: function() {
+                        this.isOpen = false;
+
+                        this.toggle = function() {
+                            this.isOpen = !this.isOpen;
+                        };
+
+                        this.close = function() {
+                            this.isOpen = false;
+                        };
+                    }
+                };
+            });
+    </file>
+</example>
  */
     .directive('keyBinding', ['keyBindings', function(keyBindings) {
         return {
