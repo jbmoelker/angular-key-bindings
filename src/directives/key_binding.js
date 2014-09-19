@@ -1,5 +1,19 @@
 angular.module('voorhoede.components.key-bindings.directives.key_binding', [])
-
+/**
+ * @ngdoc directive
+ * @name keyBinding
+ * @module key-bindings
+ * @restrict E
+ *
+ * @description
+ * Binds keys to the lifecycle of the scope.
+ *
+ * @param combo {string}
+ * Key combo that will be passed to Mousetrap.
+ *
+ * @param handler {expression}
+ * Expression that will be evaluated when the specified key combo is performed.
+ */
     .directive('keyBinding', ['keyBindings', function(keyBindings) {
         return {
             restrict: 'E',

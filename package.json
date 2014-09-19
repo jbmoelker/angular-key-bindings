@@ -17,6 +17,7 @@
     "gulp-rename": "~1.2.0",
     "dgeni": "~0.4.0",
     "dgeni-packages": "~0.10.0-rc.6",
-    "canonical-path": "0.0.2"
+    "canonical-path": "0.0.2",
+    "gulp-webserver": "~0.8.1"
   }
 }

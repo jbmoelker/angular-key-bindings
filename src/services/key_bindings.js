@@ -1,10 +1,30 @@
 angular.module('voorhoede.components.key-bindings.services.key_bindings', [])
-
+/**
+ * @ngdoc service
+ * @module key-bindings
+ * @name keyBindings
+ */
     .service('keyBindings', function() {
         var self = this;
 
-        self.comboGroups = {};
+        /**
+         * @ngdoc property
+         * @name keyBindings#comboGroups
+         * @type {object}
+         */
+        self.comboGroups = {}; // TODO: use this for a cheat sheet component
 
+        /**
+         * @ngdoc method
+         * @name keyBindings#addHandler
+         * @param handler {object}
+         * Should contain:
+         *
+         * - __combo__: Combo that will be passed to Mousetrap
+         * - __handler__: Function that will be used as event handler
+         *
+         * @returns {function} Function to remove the handler
+         */
         self.addHandler = function(handler) {
 
             // TODO: add support for leaving away the combo, as "any key" handler

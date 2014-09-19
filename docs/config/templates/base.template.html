@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{$ doc.name $}</title>
+
+        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    </head>
+    <body>
+
+        {% include "lib/navbar.template.html" %}
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-3">
+                    {% include "lib/sidebar.template.html" %}
+                </div>
+
+                <div class="col-md-9">
+                    <a href='https://github.com/voorhoede/angular-key-bindings/tree/master/{$ doc.fileInfo.projectRelativePath $}'
+                       class='btn btn-link pull-right'>
+                        Improve this doc
+                    </a>
+
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </body>
+</html>

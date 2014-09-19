@@ -5,6 +5,7 @@ var uglify = require('gulp-uglify');
 var rimraf = require('gulp-rimraf');
 var rename = require('gulp-rename');
 var Dgeni = require('dgeni');
+var webserver = require('gulp-webserver');
 
 var concatName = 'angular-key-bindings.js';
 
@@ -12,6 +13,14 @@ var path = {
     deps: [
         'bower_components/angular/angular.js',
         'bower_components/mousetrap/mousetrap.js'
+    ],
+    docsAssets: [
+        'bower_components/bootstrap/dist/**/*.css',
+        'bower_components/bootstrap/dist/**/*.css.map',
+        'bower_components/bootstrap/dist/**/*.eot',
+        'bower_components/bootstrap/dist/**/*.svg',
+        'bower_components/bootstrap/dist/**/*.ttf',
+        'bower_components/bootstrap/dist/**/*.woff'
     ],
     src: ['src/**/*.js'],
     output: 'dist',
@@ -34,15 +43,24 @@ gulp.task('build_source', function() {
         .pipe(gulp.dest(path.output));
 });
 
-gulp.task('build_docs', function() {
+gulp.task('build_docs', ['build_docs_assets', 'build_docs_dgeni']);
+
+gulp.task('build_docs_dgeni', function() {
     var dgeni = new Dgeni([require('./docs/config')]);
     return dgeni.generate().catch(function(error) {
         process.exit(1);
     });
 });
+gulp.task('build_docs_assets', function() {
+    return gulp.src(path.docsAssets)
+        .pipe(gulp.dest(path.outputDocs + '/assets'))
+});
 
 gulp.task('rimraf', function() {
     return gulp.src(path.output, {read: false}).pipe(rimraf());
+});
+gulp.task('rimraf_docs', function() {
+    return gulp.src(path.outputDocs, {read: false}).pipe(rimraf());
 });
 
 gulp.task('test_run', testTask({action: 'run', configFile: 'karma.conf.js'}));
@@ -57,3 +75,10 @@ function testTask(karmaConfig) {
             });
     }
 }
+
+gulp.task('serve_docs', function() {
+    gulp.src('dist/docs')
+        .pipe(webserver({
+            open: true
+        }));
+});
