@@ -44,6 +44,10 @@ angular.module('voorhoede.components.key-bindings.directives.bind_keys', [])
                     unwatchEvents = scope.$watchCollection(value, bindEvents);
                 });
 
+                scope.$on('$destroy', function() {
+                    deactivate();
+                });
+
                 function getHandlers(parsedExpression) {
                     if (!angular.isObject(parsedExpression)) {
                         throw new Error('[on-key] expression must be an object');
