@@ -47,9 +47,14 @@
 
     {% block examples %}
     {%- if doc.examples %}
-    <h2 id="example">Example</h2>
+    <h2 id="examples">Examples</h2>
     {%- for example in doc.examples -%}
-        {$ example | marked $}
+        <div class="panel panel-default">
+            <div class="panel-heading">Example</div>
+            <div class="panel-body">
+                {$ example | marked $}
+            </div>
+        </div>
     {%- endfor -%}
     {% endif -%}
     {% endblock %}
