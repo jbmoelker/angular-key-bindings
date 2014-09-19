@@ -31,12 +31,13 @@ angular.module('voorhoede.components.key-bindings.directives.bind_keys', [])
 
                 var handlers = [];
                 var handlerRemovers = [];
-                var unwatch;
+                var unwatchAttr;
                 var unwatchEvents;
+                var unwatchHandlers;
 
                 attrs.$observe(attrName, function(value) {
-                    if (unwatch) unwatch();
-                    unwatch = scope.$watchCollection(value, getHandlers);
+                    if (unwatchAttr) unwatchAttr();
+                    unwatchAttr = scope.$watchCollection(value, getHandlers);
                 });
 
                 attrs.$observe(attrName + 'Events', function(value) {
@@ -84,10 +85,12 @@ angular.module('voorhoede.components.key-bindings.directives.bind_keys', [])
                 }
 
                 function activate() {
-                    scope.$watch(function() {
+                    if (unwatchHandlers) return;
+
+                    unwatchHandlers = scope.$watch(function() {
                         return handlers;
                     }, function(newHandlers) {
-                        deactivate();
+                        removeHandlers();
                         angular.forEach(newHandlers, function(handler) {
                             handlerRemovers.push(keyBindings.addHandler(handler));
                         });
@@ -95,6 +98,15 @@ angular.module('voorhoede.components.key-bindings.directives.bind_keys', [])
                 }
 
                 function deactivate() {
+                    if (unwatchHandlers) {
+                        unwatchHandlers();
+                        unwatchHandlers = null;
+                    }
+
+                    removeHandlers();
+                }
+
+                function removeHandlers() {
                     angular.forEach(handlerRemovers, function(remove) {
                         remove();
                     });
