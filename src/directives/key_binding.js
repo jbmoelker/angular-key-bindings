@@ -30,10 +30,12 @@ angular.module('voorhoede.components.key-bindings.directives.key_binding', [])
                 }
 
                 function handler(event, combo) {
-                    return scope.handler({
+                    var returnValue = scope.handler({
                         '$event': event,
                         '$combo': combo
                     });
+                    scope.$apply();
+                    return returnValue;
                 }
 
                 scope.$watch('combo', function(combo) {

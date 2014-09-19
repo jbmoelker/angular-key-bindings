@@ -62,10 +62,12 @@ angular.module('voorhoede.components.key-bindings.directives.bind_keys', [])
                         } else if (angular.isString(handlerExpression)) {
                             parsedHandlerExpression = $parse(handlerExpression);
                             handler.handler = function(event, combo) {
-                                return parsedHandlerExpression(scope, {
+                                var returnValue = parsedHandlerExpression(scope, {
                                     '$event': event,
                                     '$combo': combo
                                 });
+                                scope.$apply();
+                                return returnValue;
                             };
                         } else {
                             throw new Error('[on-key] handler expression must be a function or string');
