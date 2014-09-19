@@ -1,0 +1,14 @@
+{
+  "name": "angular-key-bindings",
+  "version": "0.0.0",
+  "description": "Context-based key combo handling through directives",
+  "main": "dist/angular-key-bindings.js",
+  "private": true,
+  "dependencies": {
+    "mousetrap": "~1.4.6",
+    "angular": "~1.2.25"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.25"
+  }
+}
