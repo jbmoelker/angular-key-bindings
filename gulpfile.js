@@ -10,27 +10,31 @@ var webserver = require('gulp-webserver');
 var concatName = 'angular-key-bindings.js';
 
 var path = {
-    deps: [
-        'bower_components/angular/angular.js',
-        'bower_components/mousetrap/mousetrap.js'
-    ],
-    docsAssets: [
-        'bower_components/bootstrap/dist/**/*.css',
-        'bower_components/bootstrap/dist/**/*.css.map',
-        'bower_components/bootstrap/dist/**/*.eot',
-        'bower_components/bootstrap/dist/**/*.svg',
-        'bower_components/bootstrap/dist/**/*.ttf',
-        'bower_components/bootstrap/dist/**/*.woff'
-    ],
     src: ['src/**/*.js'],
     output: 'dist',
     outputDocs: 'dist/docs'
 };
 
-path.test = path.deps.concat(path.src, [
+path.docsAssets = [
+    'bower_components/angular/angular.js',
+    'bower_components/angular/angular.min.js',
+    'bower_components/angular/angular.min.js.map',
+    'bower_components/mousetrap/mousetrap.min.js',
+    'bower_components/bootstrap/dist/**/*.css',
+    'bower_components/bootstrap/dist/**/*.css.map',
+    'bower_components/bootstrap/dist/**/*.eot',
+    'bower_components/bootstrap/dist/**/*.svg',
+    'bower_components/bootstrap/dist/**/*.ttf',
+    'bower_components/bootstrap/dist/**/*.woff',
+    path.output + '/*.js'
+];
+
+path.test = [
+    'bower_components/angular/angular.js',
     'bower_components/angular-mocks/angular-mocks.js',
+    'bower_components/mousetrap/mousetrap.js',
     'test/**/*.js'
-]);
+].concat(path.src);
 
 gulp.task('default', ['build_source']);
 
@@ -51,7 +55,7 @@ gulp.task('build_docs_dgeni', function() {
         process.exit(1);
     });
 });
-gulp.task('build_docs_assets', function() {
+gulp.task('build_docs_assets', ['build_source'], function() {
     return gulp.src(path.docsAssets)
         .pipe(gulp.dest(path.outputDocs + '/assets'))
 });

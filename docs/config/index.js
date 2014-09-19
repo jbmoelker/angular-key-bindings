@@ -4,9 +4,11 @@ var packagePath = __dirname;
 var Package = require('dgeni').Package;
 
 module.exports = new Package('angular-key-bindings', [
-    require('dgeni-packages/ngdoc')
+    require('dgeni-packages/ngdoc'),
+    require('dgeni-packages/examples')
 ])
     .factory(require('./inline-tag-defs/link'))
+    .factory(require('./services/deployments/default'))
 
     .config(function(dgeni, log, readFilesProcessor, writeFilesProcessor) {
 
@@ -70,4 +72,18 @@ module.exports = new Package('angular-key-bindings', [
 
     .config(function(templateFinder) {
         templateFinder.templateFolders.unshift(path.resolve(packagePath, 'templates'));
+    })
+
+    .config(function(
+        generateProtractorTestsProcessor,
+        generateExamplesProcessor,
+        defaultDeployment) {
+
+        generateProtractorTestsProcessor.deployments = [
+            defaultDeployment
+        ];
+
+        generateExamplesProcessor.deployments = [
+            defaultDeployment
+        ];
     });
