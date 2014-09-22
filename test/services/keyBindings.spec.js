@@ -37,7 +37,7 @@ describe('keyBindings service', function() {
     });
 
     describe('addHandler()', function() {
-        describe('when no group exists yet', function() {
+        describe('if no group exists yet', function() {
             it('should create a group and push the handler into it', function() {
                 service.addHandler(testHandler);
                 expect(service.comboGroups.test).toEqual([testHandler]);
@@ -50,7 +50,7 @@ describe('keyBindings service', function() {
             });
         });
 
-        describe('when a group already exists', function() {
+        describe('if a group already exists', function() {
             it('should push the handler into the group', function() {
                 service.comboGroups = {'test': [testHandler]};
                 service.addHandler(testHandler2);
@@ -95,7 +95,7 @@ describe('keyBindings service', function() {
             expect(removeHandler).not.toThrow();
         });
 
-        describe('when the handler was the last remaining within the group', function() {
+        describe('if the handler was the last remaining within the group', function() {
             it('should unbind the combo', function() {
                 spyOn(service, 'unbindCombo');
                 removeHandler();
