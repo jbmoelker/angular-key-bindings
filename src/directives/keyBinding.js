@@ -9,14 +9,18 @@ angular.module('voorhoede.components.keyBindings.directives.keyBinding', [])
  * Binds keys to the lifecycle of the scope.
  *
  * @param combo {string}
- * Key combo that will be passed to Mousetrap.
+ * A key combo that will be passed to Mousetrap. [List of supported keys](http://craig.is/killing/mice#keys)
  *
  * @param handler {expression}
- * Expression that will be evaluated when the specified key combo is performed.
+ * Expression that will be evaluated as event handler. Available expression locals:
+ *
+ * - `$event`: The event object
+ * - `$combo`: The combo that triggered the event
  *
  * @example
  * Using the `n` key globally in the app to create a new document, unless the currently focused element
  * is editable (e.g., input, select)
+ *
 <example module="app">
     <file name="index.html">
         <div ng-controller="AppCtrl as app">
@@ -39,7 +43,9 @@ angular.module('voorhoede.components.keyBindings.directives.keyBinding', [])
     </file>
 </example>
  *
- * @example Using the escape key in every closable component to close it, but only close 1 component at a time.
+ * @example
+ * Using the escape key in every closable component to close it, but only closing 1 component at a time.
+ *
 <example module="app">
     <file name="index.html">
         <dropdown button-text="Dropdown level 1">

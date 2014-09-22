@@ -26,10 +26,11 @@ angular.module('voorhoede.components.keyBindings.services.keyBindings', [])
          * @param handler {object}
          * Handler object that should contain at least:
          *
-         * - __combo__: A key combo that will be passed to Mousetrap.
+         * - `combo`: A key combo that will be passed to Mousetrap.
          *   [List of supported keys](http://craig.is/killing/mice#keys)
-         * - __handler__: Function that will be used as event handler. It will be passed an `event` object
-         *   and the `combo` that triggered the event.
+         * - `handler`: Function that will be used as event handler. Passed arguments:
+         *     - `event`: The event object
+         *     - `combo`: The combo that triggered the event
          *
          * You can add any additional properties that you may want to use later (e.g., you can pass a `description`
          * if you want to be able to generate a human-readable cheat sheet of active key bindings.)

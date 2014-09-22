@@ -12,16 +12,19 @@ angular.module('voorhoede.components.keyBindings.directives.bindKeys', [])
  * @restrict A
  *
  * @description
- * Binds key handlers while the element is focused.
+ * Binds keys to certain DOM events on the element.
+ *
+ * By default, the bindings are activated on `focus` and deactivated on `blur`.
  *
  * @param bindKeys {expression}
- * Object notation of combos and handlers.
+ * Expression containing an object notation of key combos and handlers.
  *
  * @param bindKeysEvents {expression}
- * Object notation that can be used to use custom events for toggling the key bindings:
+ * Can be used to specify your own events to determine the life cycle of the handlers.
+ * When used, the attribute value should be an object containing:
  *
- * - __activate__: event that will be used to activate the bindings _(default: focus)_
- * - __deactivate__: event that will be used to deactivate the bindings _(default: blur)_
+ * - `activate`: event that will be used to activate the bindings _(default: focus)_
+ * - `deactivate`: event that will be used to deactivate the bindings _(default: blur)_
  */
     .directive('bindKeys', ['$parse', 'keyBindings', 'BIND_KEYS_EVENTS', function($parse, keyBindings, BIND_KEYS_EVENTS) {
         var attrName = 'bindKeys';
