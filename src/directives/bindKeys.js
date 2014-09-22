@@ -1,4 +1,4 @@
-angular.module('voorhoede.components.key-bindings.directives.bind_keys', [])
+angular.module('voorhoede.components.keyBindings.directives.bindKeys', [])
 
     .constant('BIND_KEYS_EVENTS', {
         activate: 'focus',
@@ -8,7 +8,7 @@ angular.module('voorhoede.components.key-bindings.directives.bind_keys', [])
 /**
  * @ngdoc directive
  * @name bindKeys
- * @module key-bindings
+ * @module voorhoede.components.keyBindings
  * @restrict A
  *
  * @description

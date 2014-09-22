@@ -1,8 +1,8 @@
-angular.module('voorhoede.components.key-bindings.services.key_bindings', [])
+angular.module('voorhoede.components.keyBindings.services.keyBindings', [])
 /**
  * @ngdoc service
- * @module key-bindings
  * @name keyBindings
+ * @module voorhoede.components.keyBindings
  */
     .service('keyBindings', function() {
         var self = this;

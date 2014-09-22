@@ -1,8 +1,8 @@
-angular.module('voorhoede.components.key-bindings.directives.key_binding', [])
+angular.module('voorhoede.components.keyBindings.directives.keyBinding', [])
 /**
  * @ngdoc directive
  * @name keyBinding
- * @module key-bindings
+ * @module voorhoede.components.keyBindings
  * @restrict E
  *
  * @description
@@ -30,7 +30,7 @@ angular.module('voorhoede.components.key-bindings.directives.key_binding', [])
         </div>
     </file>
     <file name="index.js">
-        angular.module('app', ['voorhoede.components.key-bindings'])
+        angular.module('app', ['voorhoede.components.keyBindings'])
             .controller('AppCtrl', function() {
                 this.createNewDocument = function() {
                     alert('Create new document');
@@ -64,7 +64,7 @@ angular.module('voorhoede.components.key-bindings.directives.key_binding', [])
         </div>
     </file>
     <file name="index.js">
-        angular.module('app', ['voorhoede.components.key-bindings'])
+        angular.module('app', ['voorhoede.components.keyBindings'])
             .directive('dropdown', function() {
                 return {
                     restrict: 'E',
