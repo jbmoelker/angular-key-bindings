@@ -1,7 +1,7 @@
 {
   "name": "angular-key-bindings",
   "version": "0.0.0",
-  "description": "Context-based key combo handling through directives",
+  "description": "Contextual key combo handling through directives",
   "main": "dist/angular-key-bindings.js",
   "private": true,
   "dependencies": {

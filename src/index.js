@@ -2,7 +2,7 @@
  * @ngdoc module
  * @name voorhoede.components.keyBindings
  * @description
- * Context-based key combo handling through directives.
+ * Contextual key combo handling through directives.
  */
 angular.module('voorhoede.components.keyBindings', [
     'voorhoede.components.keyBindings.directives.bindKeys',
