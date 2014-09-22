@@ -34,40 +34,42 @@ angular.module('voorhoede.components.keyBindings.services.keyBindings', [])
 
             if (!self.comboGroups[handler.combo]) {
                 self.comboGroups[handler.combo] = [];
-                self._bindComboGroup(handler.combo);
+                self.bindCombo(handler.combo);
             }
 
-            var handlers = self.comboGroups[handler.combo];
-
-            handlers.push(handler);
+            self.comboGroups[handler.combo].push(handler);
 
             return function removeHandler() {
-                var index = handlers.indexOf(handler);
-                if (index > -1) {
-                    handlers.splice(index, 1);
-                    if (!handlers.length) {
-                        self._unbindComboGroup(handler.combo);
+                var comboGroup = self.comboGroups[handler.combo];
+                var index;
+                if (comboGroup) {
+                    index = comboGroup.indexOf(handler);
+                    if (index > -1) {
+                        comboGroup.splice(index, 1);
+                        if (!comboGroup.length) {
+                            self.unbindCombo(handler.combo);
+                            self.comboGroups[handler.combo] = null;
+                        }
                     }
                 }
             };
         };
 
-        self._bindComboGroup = function(combo) {
-            Mousetrap.bind(combo, function(event, combo) {
-                self._triggerHandlers(self.comboGroups[combo], event, combo);
+        self.bindCombo = function(combo) {
+            Mousetrap.bind(combo, function(event, _combo) {
+                self.triggerHandlers(self.comboGroups[combo], event, _combo);
             });
         };
 
-        self._unbindComboGroup = function(combo) {
+        self.unbindCombo = function(combo) {
             Mousetrap.unbind(combo);
-            self.comboGroups[combo] = null;
         };
 
-        self._triggerHandlers = function(handlers, event, combo) {
+        self.triggerHandlers = function(handlers, event, combo) {
             var triggerNext = true;
             var i = handlers.length;
 
-            while (triggerNext && --i > -1) {
+            while (triggerNext && i-- > 0) {
                 triggerNext = handlers[i].handler(event, combo) === true;
             }
         };
