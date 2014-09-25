@@ -18,6 +18,8 @@
     "dgeni": "~0.4.0",
     "dgeni-packages": "~0.10.0-rc.6",
     "canonical-path": "0.0.2",
-    "gulp-webserver": "~0.8.1"
+    "gulp-webserver": "~0.8.1",
+    "gulp-jshint": "^1.8.4",
+    "jshint-stylish": "^1.0.0"
   }
 }

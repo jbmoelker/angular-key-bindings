@@ -6,6 +6,7 @@ var rimraf = require('gulp-rimraf');
 var rename = require('gulp-rename');
 var Dgeni = require('dgeni');
 var webserver = require('gulp-webserver');
+var jshint = require('gulp-jshint');
 
 var concatName = 'angular-key-bindings.js';
 
@@ -51,13 +52,13 @@ gulp.task('build_docs', ['build_docs_assets', 'build_docs_dgeni']);
 
 gulp.task('build_docs_dgeni', function() {
     var dgeni = new Dgeni([require('./docs/config')]);
-    return dgeni.generate().catch(function(error) {
+    return dgeni.generate().catch(function() {
         process.exit(1);
     });
 });
 gulp.task('build_docs_assets', ['build_source'], function() {
     return gulp.src(path.docsAssets)
-        .pipe(gulp.dest(path.outputDocs + '/assets'))
+        .pipe(gulp.dest(path.outputDocs + '/assets'));
 });
 
 gulp.task('rimraf', function() {
@@ -77,7 +78,7 @@ function testTask(karmaConfig) {
             .on('error', function(error) {
                 throw error;
             });
-    }
+    };
 }
 
 gulp.task('serve_docs', function() {
@@ -86,3 +87,17 @@ gulp.task('serve_docs', function() {
             open: true
         }));
 });
+
+gulp.task('jshint_src', function() {
+    return gulp.src(path.src)
+        .pipe(jshint('src/.jshintrc'))
+        .pipe(jshint.reporter(require('jshint-stylish')));
+});
+
+gulp.task('jshint_node', function() {
+    return gulp.src(['*.js', 'docs/**/*.js', 'test/**/*.js'])
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter(require('jshint-stylish')));
+});
+
+gulp.task('jshint', ['jshint_src', 'jshint_node']);
