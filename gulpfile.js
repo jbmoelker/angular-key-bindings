@@ -89,15 +89,15 @@ gulp.task('serve_docs', function() {
 });
 
 gulp.task('jshint_src', function() {
-	return gulp.src(path.src)
-		.pipe(jshint('src/.jshintrc'))
-		.pipe(jshint.reporter(require('jshint-stylish')));
+    return gulp.src(path.src)
+        .pipe(jshint('src/.jshintrc'))
+        .pipe(jshint.reporter(require('jshint-stylish')));
 });
 
 gulp.task('jshint_node', function() {
-	return gulp.src(['*.js', 'docs/**/*.js', 'test/**/*.js'])
-		.pipe(jshint('.jshintrc'))
-		.pipe(jshint.reporter(require('jshint-stylish')));
+    return gulp.src(['*.js', 'docs/**/*.js', 'test/**/*.js'])
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter(require('jshint-stylish')));
 });
 
 gulp.task('jshint', ['jshint_src', 'jshint_node']);
