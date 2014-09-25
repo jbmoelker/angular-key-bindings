@@ -94,8 +94,10 @@ gulp.task('jshint_src', function() {
 		.pipe(jshint.reporter(require('jshint-stylish')));
 });
 
-gulp.task('jshint', ['jshint_src'], function() {
-	return gulp.src(['*.js', '*.json', 'docs/**/*.js', 'test/**/*.js'])
+gulp.task('jshint_node', function() {
+	return gulp.src(['*.js', 'docs/**/*.js', 'test/**/*.js'])
 		.pipe(jshint('.jshintrc'))
 		.pipe(jshint.reporter(require('jshint-stylish')));
 });
+
+gulp.task('jshint', ['jshint_src', 'jshint_node']);
