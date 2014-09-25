@@ -4,6 +4,9 @@
   "description": "Contextual key combo handling through directives",
   "main": "src/index.js",
   "private": true,
+  "scripts": {
+    "test": "gulp test_run"
+  },
   "devDependencies": {
     "bower": "~1.3.10",
     "karma-chrome-launcher": "~0.1.4",
