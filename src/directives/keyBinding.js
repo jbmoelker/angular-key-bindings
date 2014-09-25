@@ -101,7 +101,7 @@ angular.module('voorhoede.components.keyBindings.directives.keyBinding', [])
                 combo: '@',
                 handler: '&'
             },
-            link: function(scope, element, attrs) {
+            link: function(scope/*, element, attrs*/) {
                 var removeFn;
 
                 function remove() {
