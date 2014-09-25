@@ -21,78 +21,96 @@ angular.module('voorhoede.components.keyBindings.directives.keyBinding', [])
  * Using the `n` key globally in the app to create a new document, unless the currently focused element
  * is editable (e.g., input, select)
  *
-<example module="app">
-    <file name="index.html">
-        <div ng-controller="AppCtrl as app">
-            <key-binding combo="n" handler="app.createNewDocument()"></key-binding>
-            <div class="form-group">
-                <input class="form-control" type="text">
-            </div>
-            <div class="form-group">
-                <textarea class="form-control"></textarea>
-            </div>
-        </div>
-    </file>
-    <file name="index.js">
-        angular.module('app', ['voorhoede.components.keyBindings'])
-            .controller('AppCtrl', function() {
-                this.createNewDocument = function() {
-                    alert('Create new document');
-                };
-            });
-    </file>
-</example>
+ * <example module="app">
+ *     <file name="index.html">
+ *         <div ng-controller="AppCtrl as app">
+ *             <key-binding combo="n" handler="app.createNewDocument()"></key-binding>
+ *             <div class="form-group">
+ *                 <input class="form-control" type="text">
+ *             </div>
+ *             <div class="form-group">
+ *                 <textarea class="form-control"></textarea>
+ *             </div>
+ *         </div>
+ *     </file>
+ *     <file name="index.js">
+ *         angular.module('app', [
+ *             'voorhoede.components.keyBindings'
+ *         ])
+ *             .controller('AppCtrl', function() {
+ *                 this.createNewDocument = function() {
+ *                     alert('Create new document');
+ *                 };
+ *             });
+ *     </file>
+ * </example>
  *
  * @example
- * Using the escape key in every closable component to close it, but only closing 1 component at a time.
+ * Using `esc` to close nested dropdown components, one at a time.
  *
-<example module="app">
-    <file name="index.html">
-        <dropdown button-text="Dropdown level 1">
-            <dropdown button-text="Dropdown level 2">
-                <dropdown  button-text="Dropdown level 3">
-                </dropdown>
-            </dropdown>
-        </dropdown>
-    </file>
-    <file name="dropdown.html">
-        <div class="dropdown" ng-class="{'open': dropdown.isOpen}">
-            <button class="btn btn-default" ng-click="dropdown.toggle()">
-                {{ buttonText }}
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" ng-if="dropdown.isOpen">
-                <key-binding combo="esc" handler="dropdown.close()"></key-binding>
-                <li><a href="">Item 1</a></li>
-                <li><a href="">Item 2</a></li>
-                <li ng-transclude></li>
-            </ul>
-        </div>
-    </file>
-    <file name="index.js">
-        angular.module('app', ['voorhoede.components.keyBindings'])
-            .directive('dropdown', function() {
-                return {
-                    restrict: 'E',
-                    scope: {buttonText: '@'},
-                    templateUrl: 'dropdown.html',
-                    transclude: true,
-                    controllerAs: 'dropdown',
-                    controller: function() {
-                        this.isOpen = false;
-
-                        this.toggle = function() {
-                            this.isOpen = !this.isOpen;
-                        };
-
-                        this.close = function() {
-                            this.isOpen = false;
-                        };
-                    }
-                };
-            });
-    </file>
-</example>
+ * <example module="app">
+ *     <file name="index.html">
+ *         <dropdown-button label="Dropdown 1">
+ *             <ul class="dropdown-menu">
+ *                 <li><a href="">Item 1</a></li>
+ *                 <li><a href="">Item 2</a></li>
+ *                 <li>
+ *                     <dropdown-button label="Dropdown 2">
+ *                         <ul class="dropdown-menu">
+ *                             <li><a href="">Item 3</a></li>
+ *                             <li><a href="">Item 4</a></li>
+ *                             <li>
+ *                                 <dropdown-button label="Dropdown 3">
+ *                                     <ul class="dropdown-menu">
+ *                                         <li><a href="">Item 5</a></li>
+ *                                         <li><a href="">Item 6</a></li>
+ *                                     </ul>
+ *                                 </dropdown-button>
+ *                             </li>
+ *                         </ul>
+ *                     </dropdown-button>
+ *                 </li>
+ *             </ul>
+ *         </dropdown-button>
+ *     </file>
+ *     <file name="index.js">
+ *         angular.module('app', [
+ *             'components.dropdownButton'
+ *         ]);
+ *     </file>
+ *     <file name="dropdownButton.html">
+ *         <div class="dropdown">
+ *             <button class="btn btn-default" ng-click="controller.toggle()">
+ *                 {{ label }}
+ *                 <span class="caret"></span>
+ *             </button>
+ *             <div ng-if="controller.isOpen">
+ *                 <key-binding combo="esc" handler="controller.toggle()"></key-binding>
+ *             </div>
+ *             <div ng-transclude ng-if="controller.isOpen" class="open"></div>
+ *         </div>
+ *     </file>
+ *     <file name="dropdownButton.js">
+ *         angular.module('components.dropdownButton', [
+ *             'voorhoede.components.keyBindings'
+ *         ])
+ *             .directive('dropdownButton', function() {
+ *                 return {
+ *                     restrict: 'E',
+ *                     scope: {'label': '@'},
+ *                     transclude: true,
+ *                     templateUrl: 'dropdownButton.html',
+ *                     controllerAs: 'controller',
+ *                     controller: function() {
+ *                         this.isOpen = false;
+ *                         this.toggle = function() {
+ *                             this.isOpen = !this.isOpen;
+ *                         };
+ *                     }
+ *                 };
+ *             });
+ *     </file>
+ * </example>
  */
     .directive('keyBinding', ['keyBindings', function(keyBindings) {
         return {
