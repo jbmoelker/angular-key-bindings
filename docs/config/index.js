@@ -46,7 +46,7 @@ module.exports = new Package('angular-key-bindings', [
         });
 
         computePathsProcessor.pathTemplates.push({
-            docTypes: ['overview'],
+            docTypes: ['overview', 'tutorial'],
             getPath: function(doc) {
                 var docPath = path.dirname(doc.fileInfo.relativePath);
                 if (doc.fileInfo.baseName !== 'index') {
@@ -60,7 +60,7 @@ module.exports = new Package('angular-key-bindings', [
         });
 
         computeIdsProcessor.idTemplates.push({
-            docTypes: ['overview'],
+            docTypes: ['overview', 'tutorial'],
             getId: function(doc) {
                 return doc.fileInfo.baseName;
             },
