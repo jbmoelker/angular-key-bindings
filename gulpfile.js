@@ -77,10 +77,14 @@ gulp.task('test_watch', testTask({action: 'watch', configFile: 'karma.conf.js'})
 function configureCoverage(karmaConfig) {
     karmaConfig.preprocessors = karmaConfig.preprocessors || {};
     path.src.forEach(function(pattern){
-        karmaConfig.preprocessors[pattern] = ['coverage'];
+        var processors = karmaConfig.preprocessors[pattern];
+        processors = processors || [];
+        processors.push('coverage');
     });
-    //karmaConfig.coverageReporter = karmaConfig.coverageReporter || {};
-    //karmaConfig.coverageReporter.dir = path.coverage;
+    karmaConfig.coverageReporter = {
+        type: 'lcovonly',
+        dir: path.coverage
+    };
     return karmaConfig;
 }
 

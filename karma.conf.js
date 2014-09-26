@@ -7,13 +7,17 @@ module.exports = function(config) {
     if(process.env.TRAVIS){
     	console.log('setting Travis specific config for Karma');
     	config.set({
-    		browsers: ['Firefox', 'PhantomJS'],
+    		customLaunchers: {
+				Chrome_travis_ci: {
+					base: 'Chrome',
+					flags: ['--no-sandbox']
+				}
+			},
+    		browsers: ['Firefox', 'PhantomJS', 'Chrome_travis_ci'],
     		reporters: ['progress', 'coverage'],
-    		// preprocessors: { 'src/**/*.js': ['coverage'] }, // are set dynamically in gulp task
-    		coverageReporter: {
-		    	type : 'lcovonly',
-		    	dir : 'test_out/coverage/' // @todo: set dynamically in gulp task (centralise config)?
-		    }
+    		// preprocessors & coverageReporter are set dynamically in gulp task
+    		//preprocessors: { 'src/**/*.js': ['coverage'] },
+    		//coverageReporter: { type : 'lcovonly', dir : 'test_out/coverage/' }
     	});
   	}
 };
