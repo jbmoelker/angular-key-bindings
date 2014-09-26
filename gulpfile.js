@@ -7,6 +7,7 @@ var rename = require('gulp-rename');
 var Dgeni = require('dgeni');
 var webserver = require('gulp-webserver');
 var jshint = require('gulp-jshint');
+var coveralls = require('gulp-coveralls');
 
 var concatName = 'angular-key-bindings.js';
 
@@ -68,10 +69,25 @@ gulp.task('rimraf_docs', function() {
     return gulp.src(path.outputDocs, {read: false}).pipe(rimraf());
 });
 
+gulp.task('test_coverage', ['test_run'], testCoverageTask);
 gulp.task('test_run', testTask({action: 'run', configFile: 'karma.conf.js'}));
 gulp.task('test_watch', testTask({action: 'watch', configFile: 'karma.conf.js'}));
 
+function configureCoverage(karmaConfig) {
+    karmaConfig['preprocessors'] = karmaConfig['preprocessors'] || {};
+    path.src.forEach(function(pattern){
+        karmaConfig['preprocessors'][pattern] = ['coverage'];
+    });
+    return karmaConfig;
+}
+
+function testCoverageTask() {
+    return gulp.src('test_out/coverage/**/lcov.info')
+        .pipe(coveralls());
+}
+
 function testTask(karmaConfig) {
+    karmaConfig = configureCoverage(karmaConfig);
     return function() {
         return gulp.src(path.test)
             .pipe(karma(karmaConfig))
