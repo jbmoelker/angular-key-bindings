@@ -12,6 +12,7 @@ var coveralls = require('gulp-coveralls');
 var concatName = 'angular-key-bindings.js';
 
 var path = {
+    coverage: 'test_out/coverage',
     src: ['src/**/*.js'],
     output: 'dist',
     outputDocs: 'dist/docs'
@@ -74,15 +75,17 @@ gulp.task('test_run', testTask({action: 'run', configFile: 'karma.conf.js'}));
 gulp.task('test_watch', testTask({action: 'watch', configFile: 'karma.conf.js'}));
 
 function configureCoverage(karmaConfig) {
-    karmaConfig['preprocessors'] = karmaConfig['preprocessors'] || {};
+    karmaConfig.preprocessors = karmaConfig.preprocessors || {};
     path.src.forEach(function(pattern){
-        karmaConfig['preprocessors'][pattern] = ['coverage'];
+        karmaConfig.preprocessors[pattern] = ['coverage'];
     });
+    //karmaConfig.coverageReporter = karmaConfig.coverageReporter || {};
+    //karmaConfig.coverageReporter.dir = path.coverage;
     return karmaConfig;
 }
 
 function testCoverageTask() {
-    return gulp.src('test_out/coverage/**/lcov.info')
+    return gulp.src(path.coverage + '/**/lcov.info')
         .pipe(coveralls());
 }
 
