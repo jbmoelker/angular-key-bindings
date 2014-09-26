@@ -81,10 +81,10 @@ function configureCoverage(karmaConfig) {
         processors = processors || [];
         processors.push('coverage');
     });
-    karmaConfig.coverageReporter = {
-        type: 'lcovonly',
-        dir: path.coverage
-    };
+    // karmaConfig.coverageReporter = {
+    //     type: 'lcovonly',
+    //     dir: path.coverage
+    // };
     return karmaConfig;
 }
 
