@@ -77,14 +77,14 @@ gulp.task('test_watch', testTask({action: 'watch', configFile: 'karma.conf.js'})
 function configureCoverage(karmaConfig) {
     karmaConfig.preprocessors = karmaConfig.preprocessors || {};
     path.src.forEach(function(pattern){
-        var processors = karmaConfig.preprocessors[pattern];
-        processors = processors || [];
-        processors.push('coverage');
+        karmaConfig.preprocessors[pattern] = karmaConfig.preprocessors[pattern] || [];
+        karmaConfig.preprocessors[pattern].push('coverage');
     });
-    // karmaConfig.coverageReporter = {
-    //     type: 'lcovonly',
-    //     dir: path.coverage
-    // };
+    console.log('preprocessors', karmaConfig);
+    karmaConfig.coverageReporter = {
+        type: 'lcovonly',
+        dir: path.coverage
+    };
     return karmaConfig;
 }
 
