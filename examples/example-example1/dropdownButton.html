@@ -1,0 +1,10 @@
+    <div class="dropdown">
+        <button class="btn btn-default" ng-click="controller.toggle()">
+            {{ label }}
+            <span class="caret"></span>
+        </button>
+        <div ng-if="controller.isOpen">
+            <key-binding combo="esc" handler="controller.toggle()"></key-binding>
+        </div>
+        <div ng-transclude ng-if="controller.isOpen" class="open"></div>
+    </div>
