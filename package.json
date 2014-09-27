@@ -6,8 +6,9 @@
   "private": true,
   "scripts": {
     "coverage": "gulp test_coverage",
+    "docs": "gulp build_docs",
     "test": "gulp test_run",
-    "travis": "npm run coverage && scripts/travis/update-gh-pages.sh"
+    "travis": "npm run coverage && npm run docs && scripts/travis/update-gh-pages.sh"
   },
   "devDependencies": {
     "bower": "~1.3.10",

@@ -4,7 +4,8 @@ if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then
   echo "Starting to update gh-pages\n"
 
   #copy data we're interested in to other place
-  #cp -R coverage $HOME/coverage
+  cp -R dist/docs $HOME/docs
+  cp docs/README.md $HOME/docs
 
   #go to home and setup git
   cd $HOME
@@ -16,8 +17,8 @@ if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then
 
   #go into diractory and copy data we're interested in to that directory
   cd gh-pages
-  #cp -Rf $HOME/coverage/* .
-  echo "Travis generated docs" > index.html
+  cp -Rf $HOME/docs/* .
+  #echo "Travis generated docs" > index.html
 
   #add, commit and push files
   git add -f .
@@ -25,4 +26,6 @@ if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then
   git push -fq origin gh-pages > /dev/null
 
   echo "Done updating gh-pages\n"
+else
+  echo "Updating gh-pages skipped, because Travis is not notified from master branch."
 fi;

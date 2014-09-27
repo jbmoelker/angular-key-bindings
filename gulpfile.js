@@ -80,7 +80,6 @@ function configureCoverage(karmaConfig) {
         karmaConfig.preprocessors[pattern] = karmaConfig.preprocessors[pattern] || [];
         karmaConfig.preprocessors[pattern].push('coverage');
     });
-    console.log('preprocessors', karmaConfig);
     karmaConfig.coverageReporter = {
         type: 'lcovonly',
         dir: path.coverage
@@ -89,8 +88,11 @@ function configureCoverage(karmaConfig) {
 }
 
 function testCoverageTask() {
-    return gulp.src(path.coverage + '/**/lcov.info')
-        .pipe(coveralls());
+    var stream = gulp.src(path.coverage + '/**/lcov.info');
+    if(process.env.TRAVIS){
+        stream.pipe(coveralls());
+    }
+    return stream;
 }
 
 function testTask(karmaConfig) {
