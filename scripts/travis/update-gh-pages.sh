@@ -1,5 +1,7 @@
-#if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-  echo -e "Starting to update gh-pages\n"
+#!/bin/bash
+
+if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then
+  echo "Starting to update gh-pages\n"
 
   #copy data we're interested in to other place
   #cp -R coverage $HOME/coverage
@@ -22,5 +24,5 @@
   git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to gh-pages"
   git push -fq origin gh-pages > /dev/null
 
-  echo -e "Done updating gh-pages\n"
-#fi
+  echo "Done updating gh-pages\n"
+fi;
