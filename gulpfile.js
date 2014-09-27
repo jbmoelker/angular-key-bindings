@@ -90,6 +90,7 @@ function configureCoverage(karmaConfig) {
 function testCoverageTask() {
     var stream = gulp.src(path.coverage + '/**/lcov.info');
     if(process.env.TRAVIS){
+        console.log('travis env', process.env.TRAVIS);
         stream.pipe(coveralls());
     }
     return stream;
