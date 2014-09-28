@@ -3,7 +3,7 @@
 {% block related_components %}
     {% if doc.serviceDoc -%}
     <li>
-        <a href="/{$ doc.serviceDoc.path $}">- {$ doc.serviceDoc.name $}</a>
+        <a href="{$ app.baseUrl $}/{$ doc.serviceDoc.path $}">- {$ doc.serviceDoc.name $}</a>
     </li>
     {%- endif %}
 {% endblock %}
