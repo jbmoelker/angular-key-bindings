@@ -1,6 +1,6 @@
 var INLINE_LINK = /(\S+)(?:\s+([\s\S]+))?/;
 
-module.exports = function linkInlineTagDef(getLinkInfo, createDocMessage) {
+module.exports = function linkInlineTagDef(getLinkInfo, createDocMessage, defaultDeployment) {
     return {
         name: 'link',
         description: 'Process inline link tags (of the form {@link some/uri Some Title}), replacing them with HTML anchors',
@@ -8,14 +8,13 @@ module.exports = function linkInlineTagDef(getLinkInfo, createDocMessage) {
 
             // Parse out the uri and title
             return tagDescription.replace(INLINE_LINK, function(match, uri, title) {
-
                 var linkInfo = getLinkInfo(uri, title, doc);
 
                 if (!linkInfo.valid) {
                     throw new Error(createDocMessage(linkInfo.error, doc));
                 }
 
-                return '<a href="/' + linkInfo.url + '">' + linkInfo.title + '</a>';
+                return '<a href="' + defaultDeployment.baseUrl + '/' + linkInfo.url + '">' + linkInfo.title + '</a>';
             });
         }
     };

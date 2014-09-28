@@ -70,6 +70,12 @@ module.exports = new Package('angular-key-bindings', [
         });
     })
 
+    .config(function(renderDocsProcessor, defaultDeployment) {
+        renderDocsProcessor.extraData.app = {
+            baseUrl: defaultDeployment.baseUrl
+        };
+    })
+
     .config(function(templateFinder) {
         templateFinder.templateFolders.unshift(path.resolve(packagePath, 'templates'));
     })

@@ -50,6 +50,7 @@ gulp.task('build_source', function() {
         .pipe(gulp.dest(path.output));
 });
 
+gulp.task('docs', ['build_docs', 'serve_docs']);
 gulp.task('build_docs', ['build_docs_assets', 'build_docs_dgeni']);
 
 gulp.task('build_docs_dgeni', function() {
